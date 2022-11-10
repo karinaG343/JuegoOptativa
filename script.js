@@ -31,14 +31,15 @@ window.addEventListener("load", function(){
         }
     }
 
+    //Clase para modificar el tamaño, velocidad y posicion de los disparos del juego.
     class Projectile{
         constructor(game, x, y){
             this.game = game;
             this.x = x;
             this.y = y;
-            this.width = 10; 
-            this.height = 3;
-            this.speed = 3;
+            this.width = 15; 
+            this.height = 6;
+            this.speed = 12;
             this.markedForDeletion = false;
         }
 
@@ -50,13 +51,14 @@ window.addEventListener("load", function(){
         }
 
         draw(context){
-            context.fillStyle = "yellow";
+            context.fillStyle = "black";
             context.fillRect(this.x, this.y, this.width, this.height);
         }
 
         
     }
 
+    //Clase que define al jugador.
     class Player{
         constructor(game){
             this.game = game;
@@ -195,6 +197,7 @@ window.addEventListener("load", function(){
         }
     }
 
+    //Clase para definir los eleementos del escenario.
     class BackGround{
         constructor(game){
             this.game = game;
@@ -221,12 +224,13 @@ window.addEventListener("load", function(){
 
     }
 
+    //Clase para definir tamaño, tipo de fuente y tamaño de la letra.
     class UI{
         constructor(game){
             this.game = game;
             this.fontSize = 25;
-            this.fontFamily = "Helvetica";
-            this.color = "white";
+            this.fontFamily = "Tahoma";
+            this.color = "green";
         }
 
         draw(context){
@@ -241,17 +245,17 @@ window.addEventListener("load", function(){
                 context.fillRect(20 + 5*i,50,3,20);
             }
             const formattedTime = (this.game.gameTime*0.001).toFixed(1);
-            context.fillText("Timer: " + formattedTime, 20, 100);
+            context.fillText("Tiempo: " + formattedTime, 20, 100);
             if (this.game.gameOver) {
                 context.textAlign = "center";
                 let message1;
                 let message2;
                 if (this.game.score > this.game.winningScore) {
-                    message1 = "You won";
-                    message2 = "Well done";
+                    message1 = "GANASTE";
+                    message2 = "BIEN ECHO";
                 } else {
-                    message1 = "You lost";
-                    message2 = "Try again! :(";
+                    message1 = "PERDISTE";
+                    message2 = "INTENTAR OTRA VEZ! :(";
                 }
                 context.font = "50px " + this.fontFamily;
                 context.fillText(   message1, 
@@ -267,6 +271,7 @@ window.addEventListener("load", function(){
         }
     }
 
+    //Clase principal que utiliza otras clase para definir la funcionalidad del juego.
     class Game{
         constructor(width, height){
             this.width = width;
@@ -285,9 +290,9 @@ window.addEventListener("load", function(){
             this.enemiesInterval = 1000;
             this.gameOver = false;
             this.score = 0;
-            this.winningScore = 10;
+            this.winningScore = 30;
             this.gameTime = 0;
-            this.timeLimit = 15000;
+            this.timeLimit = 30000;
             this.speed = 1;
             this.debug = false;
         }
